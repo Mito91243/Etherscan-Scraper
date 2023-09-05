@@ -97,7 +97,7 @@ function run() {
     Lastest_Transactions()
 }
 
-setInterval(run, 2500);
+setInterval(run, 5000);
 
 
 

@@ -1,6 +1,9 @@
 {
     "type": "module",
     "dependencies": {
-      "puppeteer": "^21.0.2"
+        "puppeteer": "^21.0.2"
+    },
+    "devDependencies": {
+        "parcel": "^2.9.3"
     }
-  }
+}
