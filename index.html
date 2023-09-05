@@ -1,12 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    
-</body>
-<script type="module" src="main.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100&family=Roboto:wght@100&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <link rel="stylesheet" href="dashboard.css" />
+
+  </head>
+  <body>
+    <header class="Threshold">
+      <h1 class="mt-5 text-center font-medium"> MITO TERMINAL </h1>
+    </header>
+    <div class="main-container">
+
+        <!-- Latest Transactions TABLE START -->
+        <div class="flex flex-col table-1 mt-32 m-4 border border-gray-800">
+          <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+              <div class="overflow-hidden">
+                <table class="min-w-full text-left text-sm font-light">
+                  <div
+                    class="text-center border-b border-gray-400 font-medium p-4 bo"
+                  >
+                    Latest Transactions
+                  </div>
+                  <thead class="border-b font-medium dark:border-neutral-500">
+                    <tr>
+                      <th scope="col" class="px-6 py-4">Hash</th>
+                      <th scope="col" class="px-6 py-4">Sender</th>
+                      <th scope="col" class="px-6 py-4">Reciever</th>
+                      <th scope="col" class="px-6 py-4">Value</th>
+                      <th scope="col" class="px-6 py-4">Time</th>
+                    </tr>
+                  </thead>
+                  <tbody id="table-sectors"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- SECTORS TABLE END-->
+
+    </div>
+  </body>
+  <script type="module" src="main.js"></script>
 </html>

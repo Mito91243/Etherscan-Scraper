@@ -1,57 +1,71 @@
-import fs from "fs";
-import puppeteer from "puppeteer";
-let wallets = ["0x94f1b9b64e2932f6a2db338f616844400cd58e8a"];
+document.addEventListener("DOMContentLoaded", Get_Transactions);
 
 
-async function Monitor(address) {
-  const browser = await puppeteer.launch({
-    headless: "true",
-  });
-  const page = await browser.newPage();
+function Get_Transactions() {
+  fetch("./data/Latest_Transactions.json") // Replace with the correct path to your JSON file
+    .then((response) => response.json())
+    .then((data) => {
+      const tablebody = document.getElementById("table-sectors");
+      data.forEach((item) => {
+        const tr = document.createElement("tr");
+        tr.classList.add(
+          "transition",
+          "duration-300",
+          "ease-in-out",
+          "hover:bg-neutral-100",
+          "dark:border-neutral-500",
+          "dark:hover:bg-neutral-300"
+        );
 
-  await page.setExtraHTTPHeaders({
-    "user-agent":
-      "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36",
-    "upgrade-insecure-requests": "1",
-    accept:
-      "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3",
-    "accept-encoding": "gzip, deflate, br",
-    "accept-language": "en-US,en;q=0.9,en;q=0.8",
-  });
+        const tdHash = document.createElement("td");
+        tdHash.classList.add(
+          "whitespace-nowrap",
+          "px-6",
+          "py-4",
+          "font-medium"
+        );
+        tdHash.textContent = item.Hash;
 
-  await page.goto(
-    `https://etherscan.io/address/${address}`
-  );
+        const tdSender = document.createElement("td");
+        tdSender.classList.add("whitespace-nowrap", "px-6", "py-4");
+        tdSender.textContent = item.Sender;
 
-  const extractedData = await page.evaluate(() => {
-    const data = [];
+        const tdReciever = document.createElement("td");
+        tdReciever.classList.add(
+          "whitespace-nowrap",
+          "px-6",
+          "py-4",
+          "font-medium",
+        );
+        tdReciever.textContent = item.Reciever;
 
-    const tableRows = document.querySelectorAll("tbody > tr");
+        const tdValue = document.createElement("td");
+        tdValue.classList.add(
+          "whitespace-nowrap",
+          "px-6",
+          "py-4",
+          "font-medium",
+        );
+        tdValue.textContent = item.Value;
 
-    tableRows.forEach((row) => {
-      const cells = row.querySelectorAll("td");
-      const celldata = {
-        Reciever: cells[9].textContent,
-        From: cells[7].textContent,
-        Value: cells[10].textContent.slice(0, -3),
-        Hash: cells[1].textContent,
-      };
-      data.push(celldata);
+        const tdTime = document.createElement("td");
+        tdTime.classList.add(
+          "whitespace-nowrap",
+          "px-6",
+          "py-4",
+          "font-medium",
+        );
+        tdTime.textContent = item.Age;
+
+        tablebody.appendChild(tr);
+        tr.appendChild(tdHash);
+        tr.appendChild(tdSender);
+        tr.appendChild(tdReciever);
+        tr.appendChild(tdValue)
+        tr.appendChild(tdTime)
+      });
+    })
+    .catch((error) => {
+      console.error("Error fetching JSON data:", error);
     });
-    return data;
-  });
-
-  console.log(extractedData);
-  await browser.close();
 }
-
-function Get_Transactions(wallets) {
-  wallets.forEach((wallet) => {
-    Monitor(wallet);
-  });
-}
-
-Get_Transactions(wallets)
-
-// TODO: Figure out a way to give an alert when a new transaction is sent
-
