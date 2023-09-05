@@ -69,3 +69,9 @@ function Get_Transactions() {
       console.error("Error fetching JSON data:", error);
     });
 }
+
+function run() {
+  Get_Transactions()
+}
+
+setInterval(run, 2500);

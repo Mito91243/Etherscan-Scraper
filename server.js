@@ -93,7 +93,7 @@ function Lastest_Transactions() {
 }
 
 
-async function run() {
+function run() {
     Lastest_Transactions()
 }
 
